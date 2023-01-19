@@ -106,7 +106,7 @@ function loadVideo(is_end) {
     video2.style.width = '' + width + 'px';
     video1.style.height = '' + height + 'px';
     video2.style.height = '' + height + 'px';
-
+    
     video1.pause();
     video2.pause();
     if(prev_video1_path != video1_path) {
@@ -119,14 +119,15 @@ function loadVideo(is_end) {
     }
     prev_video1_path = video1_path;
     prev_video2_path = video2_path;
-    if(is_end) {
-        video1.currentTime = 0;
-        video2.currentTime = 0;
-    }
+    
+    video1.currentTime = 0;
+    video2.currentTime = 0;
+    
     video1.playbackRate = 1.6;
     video2.playbackRate = 1.6;
+    
     video1.play();
-    video2.play();
+    video2.play();        
 }
 
 function selectVideo(video) {
@@ -277,7 +278,7 @@ function update_comparison_source() {
 
 var prev_comp1_path = 'none';
 var prev_comp2_path = 'none';
-function loadComparison(is_end) {
+function loadComparison() {
     var video1 = document.getElementById('comparison-player1');
     var video2 = document.getElementById('comparison-player2');
     var video_src1 = document.getElementById('comparison-src1');

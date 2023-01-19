@@ -74,7 +74,7 @@
       <div class="page page2"  id="video-demo">
         <h2 style="margin-top: 60px;">Interactive video demo</h2>
         <div class="cocoen" style="width: 100%;">
-          <video id="video-player1" autoplay muted onended="loadVideo(true)" style="display: block;">
+          <video id="video-player1" autoplay muted onended="" style="display: block;">
               <source id="video-src1" src="">
           </video>
           <video id="video-player2" autoplay muted  onended="loadVideo(true)" style="display: block;">
@@ -136,7 +136,7 @@
     <div class="container" id="comparison-video">
       <h2>Comparison with baseline methods and SOTA</h2>
       <div style="display: block;" id="comparison-video-div">
-        <video id="comparison-player1"  style="width: 49%" autoplay muted onended="loadComparison()">
+        <video id="comparison-player1"  style="width: 49%" autoplay muted onended="">
           <source id="comparison-src1" src="videos/car-turn/input.mp4">
         </video>
         <video id="comparison-player2"  style="width: 49%" autoplay muted onended="loadComparison()">
@@ -201,11 +201,11 @@
       crossorigin="anonymous"></script>
     <script src="js/interactive_demo.js"></script>
     <script src="dist/cocoen.js"></script>
-    <!--<script src="dist/glide.min.js"></script>-->
+    <script src="dist/glide.min.js"></script>
     <script>
       Cocoen.parse(document.body);
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+    
     <script>
         glide = new Glide('.glide', {
           type: "carousel",
@@ -221,9 +221,16 @@
             if(i == index) {
               var active_videos = document.getElementsByClassName('teaser-video-' + i);
               for(var j = 0; j < active_videos.length; j++) {
-                active_videos[j].load();
-                active_videos[j].currentTime = 0;
-                active_videos[j].play();
+                var video_ele = active_videos[j];
+                var isPlaying = video_ele.currentTime > 0 && !video_ele.paused && !video_ele.ended 
+                  && video_ele.readyState > video_ele.HAVE_CURRENT_DATA;
+
+                if (!isPlaying) {
+                  video_ele.play();
+                }
+                video_ele.load();
+                video_ele.currentTime = 0;
+                video_ele.play();
               }
             } else {
               var inactive_videos = document.getElementsByClassName('teaser-video-' + i);
