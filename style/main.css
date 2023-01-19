@@ -1,3 +1,17 @@
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 2rem;
+  text-align: center;
+}
+
+
+
 .btn-group button {
   padding: 0.5em 0.75em;
   margin: 0.4em 0.4em;
@@ -7,7 +21,6 @@
   border-radius: 5px;
   border: none;
   cursor: pointer;
-  display: inline-block;
   transition: all 0.2s;
 }
 
@@ -66,7 +79,6 @@ img {
 }
 
 .teaser .glide video {
-  width: 600px;
   border-radius: 12px;
 }
 
@@ -107,4 +119,30 @@ img {
 	background-color: transparent;
 	color: #0077b6; /* needs to stay here because of the color property of a tag */
 	text-decoration: none;
+}
+
+@media screen and (max-width: 800px) {
+  .btn-group-app, .btn-group-comp, .btn-group-comp-video {
+    text-align: center;
+  }
+  .btn-comp-video, .btn-comp-method, .btn-app-video {
+    width: 80%;
+  }
+  .container {
+    position: relative;
+    margin: auto;
+    max-width: 100%;
+    text-align: left;
+  }
+}
+@media screen and (min-width: 801px) {
+  .btn-comp-video, .btn-comp-method, .btn-app-video {
+    width: 23%;
+  }
+  .container {
+    position: relative;
+    margin: auto;
+    max-width: 800px;
+    text-align: left;
+  }
 }

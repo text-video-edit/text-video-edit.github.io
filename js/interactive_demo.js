@@ -99,8 +99,14 @@ function loadVideo(is_end) {
     var video2 = document.getElementById('video-player2');
     var video_src1 = document.getElementById('video-src1');
     var video_src2 = document.getElementById('video-src2');
-    let time1 = video1.currentTime;
-    let time2 = video2.currentTime;
+
+    var width = document.getElementById('container').clientWidth;
+    var height = width / 768 * 432;
+    video1.style.width = '' + width + 'px';
+    video2.style.width = '' + width + 'px';
+    video1.style.height = '' + height + 'px';
+    video2.style.height = '' + height + 'px';
+
     video1.pause();
     video2.pause();
     if(prev_video1_path != video1_path) {
@@ -276,6 +282,10 @@ function loadComparison(is_end) {
     var video2 = document.getElementById('comparison-player2');
     var video_src1 = document.getElementById('comparison-src1');
     var video_src2 = document.getElementById('comparison-src2');
+    
+    var width = document.getElementById('container').clientWidth;
+    document.getElementById('comparison-video-div').style.height = '' + (width / 768 * 432 / 2) + 'px';
+    
     video1.pause();
     video2.pause();
     if(prev_comp1_path != comp1_path) {
@@ -318,7 +328,14 @@ function loadApp(is_end) {
     var video = document.getElementById('app-player');
     
     var video_src = document.getElementById('app-src');
-    let time = video.currentTime;
+
+    var width =document.getElementById('container').clientWidth;
+    var height = width / 768 * 432;
+
+    video.style.width = '' + width + 'px';
+    video.style.height = '' + height + 'px';
+
+
     video.pause();
     if(prev_app_path != app_path) {
         video_src.setAttribute('src', app_path);

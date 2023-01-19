@@ -6,20 +6,6 @@
     <title>Shape-aware Text-driven Layered Video Editing Demo</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
-      body {
-        font-family: sans-serif;
-        font-size: 16px;
-        margin: 2rem;
-        text-align: center;
-      }
-      .container {
-        position: relative;
-        margin: auto;
-        max-width: 768px;
-        text-align: left;
-      }
-    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style/main.css">
     <link rel="stylesheet" href="style/glide.core.min.css">
@@ -28,7 +14,7 @@
     <link rel="stylesheet" href="style/navigation.css">
   </head>
   <body onload="selectVideo('car-turn'); selectComparisonVideo('boat'); selectAppVideo('whiteswan')">
-    <div class="container">
+    <div class="container" id="container">
       <div class="page page1">
         <h1 style="text-align: center">Shape-aware Text-driven Layered Video Editing</h1>
         <div class="authors">
@@ -86,13 +72,13 @@
         </div>
       </div>
         
-      <div class="page page2">
+      <div class="page page2"  id="video-demo">
         <h2 style="margin-top: 60px;">Interactive video demo</h2>
-        <div class="cocoen">
-          <video id="video-player1" autoplay muted onended="loadVideo(true)" style="display: block; height: 432px">
+        <div class="cocoen" style="width: 100%;">
+          <video id="video-player1" autoplay muted onended="loadVideo(true)" style="display: block;">
               <source id="video-src1" src="">
           </video>
-          <video id="video-player2" autoplay muted  onended="loadVideo(true)" style="display: block; height: 432px">
+          <video id="video-player2" autoplay muted  onended="loadVideo(true)" style="display: block;">
               <source id="video-src2" src="">
           </video>
         </div>
@@ -104,28 +90,27 @@
           <button class='btn-video' style="width:18%" onclick="selectVideo('boat')">Boat</button>
           <button class='btn-video' style="width:18%" onclick="selectVideo('libby')">Libby</button>
           <button class='btn-video' style="width:18%" onclick="selectVideo('surf')">Surf</button>
-          <br/>
           <button class='btn-video' style="width:18%" onclick="selectVideo('motorbike')">Motorbike</button>
           <button class='btn-video' style="width:18%" onclick="selectVideo('kite-surf')">Kite-surf</button>
           <button class='btn-video' style="width:18%" onclick="selectVideo('truck')">Truck</button>
           <button class='btn-video' style="width:18%" onclick="selectVideo('kid')">Kid</button>
+        </div>
+        <p><b>Foreground</b></p>
+        <div class="btn-group">
+            <button class='btn-fg' style="width:23%" onclick="selectFG(0)">source</button>
+            <button class='btn-fg' style="width:23%" onclick="selectFG(1)">sports</button>
+            <button class='btn-fg' style="width:23%" onclick="selectFG(2)">minivan</button>
+            <button class='btn-fg' style="width:23%" onclick="selectFG(3)">SUV</button>
+        </div>
+        <p><b>Background</b></p>
+        <div class="btn-group">
+          <button class='btn-bg' style="width:23%" onclick="selectBG(0)">source</button>
+          <button class='btn-bg' style="width:23%" onclick="selectBG(1)">grassland</button>
+          <button class='btn-bg' style="width:23%" onclick="selectBG(2)">snow</button>
+          <button class='btn-bg' style="width:23%" onclick="selectBG(3)">rural</button>
+        </div>
+        <br/><br/>
       </div>
-      <p><b>Foreground</b></p>
-      <div class="btn-group">
-          <button class='btn-fg' style="width:23%" onclick="selectFG(0)">source</button>
-          <button class='btn-fg' style="width:23%" onclick="selectFG(1)">sports</button>
-          <button class='btn-fg' style="width:23%" onclick="selectFG(2)">minivan</button>
-          <button class='btn-fg' style="width:23%" onclick="selectFG(3)">SUV</button>
-      </div>
-      <p><b>Background</b></p>
-      <div class="btn-group">
-        <button class='btn-bg' style="width:23%" onclick="selectBG(0)">source</button>
-        <button class='btn-bg' style="width:23%" onclick="selectBG(1)">grassland</button>
-        <button class='btn-bg' style="width:23%" onclick="selectBG(2)">snow</button>
-        <button class='btn-bg' style="width:23%" onclick="selectBG(3)">rural</button>
-      </div>
-      <br/><br/>
-    </div>
     <div class="container">
       <h2>Abstract</h2>
       <p style="text-align: justify;">Temporal consistency is essential for video editing applications.
@@ -148,13 +133,13 @@
       <img src="figures/deformation.svg" style="width: 100%">
     </div>
 
-    <div class="container">
+    <div class="container" id="comparison-video">
       <h2>Comparison with baseline methods and SOTA</h2>
-      <div style="display: block; height: 216px">
-        <video id="comparison-player1"  style="width: 49.6%" autoplay muted onended="loadComparison()">
+      <div style="display: block;" id="comparison-video-div">
+        <video id="comparison-player1"  style="width: 49%" autoplay muted onended="loadComparison()">
           <source id="comparison-src1" src="videos/car-turn/input.mp4">
         </video>
-        <video id="comparison-player2"  style="width: 49.6%" autoplay muted onended="loadComparison()">
+        <video id="comparison-player2"  style="width: 49%" autoplay muted onended="loadComparison()">
           <source id="comparison-src2" src="videos/car-turn/input.mp4">
         </video>
       </div>
@@ -163,50 +148,51 @@
         <p style="margin-top: 5px; text-align: center; width: 50%;">Ours<br/><mark style="background: none; color: white">.</mark></p>
       </div>
       <p><b>Example</b></p>
-      <div class="btn-group">
-        <button class='btn-comp-video' style="width:23%" onclick="selectComparisonVideo('car-turn')">Jeep &#8594 sports</button>
-        <button class='btn-comp-video' style="width:23%" onclick="selectComparisonVideo('blackswan')">black swan &#8594 duck</button>
-        <button class='btn-comp-video' style="width:23%" onclick="selectComparisonVideo('boat')">boat &#8594 yacht</button>
-        <button class='btn-comp-video' style="width:23%" onclick="selectComparisonVideo('libby')">dog &#8594 cat</button>
+      <div class="btn-group btn-group-comp-video">
+        <button class='btn-comp-video'  onclick="selectComparisonVideo('car-turn')">Jeep &#8594 sports</button>
+        <button class='btn-comp-video'  onclick="selectComparisonVideo('blackswan')">black swan &#8594 duck</button>
+        <button class='btn-comp-video' onclick="selectComparisonVideo('boat')">boat &#8594 yacht</button>
+        <button class='btn-comp-video'  onclick="selectComparisonVideo('libby')">dog &#8594 cat</button>
       </div>
       <p><b>Compared method</b></p>
-      <div class="btn-group">
-        <button class='btn-comp-method' style="width:23%" onclick="selectComparedMethod('input')">Input</button>
-        <button class='btn-comp-method' style="width:23%" onclick="selectComparedMethod('multi-frame')">Multi-frame baseline</button>
-        <button class='btn-comp-method' style="width:23%" onclick="selectComparedMethod('single-frame')">Single-frame baseline</button>
-        <button class='btn-comp-method' style="width:23%" onclick="selectComparedMethod('text2live')">Text2LIVE</button>
+      <div class="btn-group btn-group-comp">
+        <button class='btn-comp-method'  onclick="selectComparedMethod('input')">Input</button>
+        <button class='btn-comp-method'  onclick="selectComparedMethod('multi-frame')">Multi-frame baseline</button>
+        <button class='btn-comp-method'  onclick="selectComparedMethod('single-frame')">Single-frame baseline</button>
+        <button class='btn-comp-method'  onclick="selectComparedMethod('text2live')">Text2LIVE</button>
       </div>
       <br/><br/>
 
 
     </div>
-
-    <h2>Application: Shape-aware interpolation</h2>
-      <p>By linearly interpolating the deformation maps, the object shape can be easily interpolated <i>without</i> additional frame interpolation methods.</p>
-      <div style="display: block; height: 432px">
-        <video id="app-player" autoplay muted onended="loadApp(true)">
-          <source id="app-src" src="">
-        </video>
-      </div>
-      <p><b>Example</b></p>
-      <div class="btn-group">
-        <button class='btn-app-video' style="width:23%;" onclick="selectAppVideo('duck')">black swan &#8594 duck</button>
-        <button class='btn-app-video' style="width:23%;" onclick="selectAppVideo('whiteswan')">black swan &#8594 white swan</button>
-        <button class='btn-app-video' style="width:23%;" onclick="selectAppVideo('sports')">Jeep &#8594 sports</button>
-        <button class='btn-app-video' style="width:23%;" onclick="selectAppVideo('train')">truck &#8594 train</button>
-      </div>
-      <br/>
-      <h2>BibTex</h2>
-      <pre>
-        <code>
-@article{xxxxx,
+    <div class="container">
+      <h2>Application: Shape-aware interpolation</h2>
+        <p>By linearly interpolating the deformation maps, the object shape can be easily interpolated <i>without</i> additional frame interpolation methods.</p>
+        <div style="display: block;" id="application-div">
+          <video id="app-player" autoplay muted onended="loadApp(true)">
+            <source id="app-src" src="">
+          </video>
+        </div>
+        <p><b>Example</b></p>
+        <div class="btn-group btn-group-app">
+          <button class='btn-app-video' onclick="selectAppVideo('duck')">black swan &#8594 duck</button>
+          <button class='btn-app-video' onclick="selectAppVideo('whiteswan')">black swan &#8594 white swan</button>
+          <button class='btn-app-video'  onclick="selectAppVideo('sports')">Jeep &#8594 sports</button>
+          <button class='btn-app-video'  onclick="selectAppVideo('train')">truck &#8594 train</button>
+        </div>
+        <br/>
+    </div>
+    <h2>BibTex</h2>
+    <pre>
+      <code>
+@article{lee2023textvideoedit,
   title   = {Shape-aware Text-driven Layered Video Editing Demo},
   author  = {Lee, Yao-Chih and Jang, Ji-Ze Genevieve Jang and Chen, Yi-Ting and Qiu, Elizabeth and Huang, Jia-Bin},
   journal = {arXiv preprint arXiv:2301.xxxxx},
   year    = {2023}
 }
-        </code>
-      </pre>
+      </code>
+    </pre>
     </div>
     
 
@@ -221,7 +207,6 @@
     <script>
       Cocoen.parse(document.body);
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
     <script>
         glide = new Glide('.glide', {

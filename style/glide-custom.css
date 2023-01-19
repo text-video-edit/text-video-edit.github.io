@@ -19,3 +19,7 @@
 .glide__bullets {
   bottom: 3.5em;
 }
+
+.glide__slide video {
+  width: 100%;
+}
