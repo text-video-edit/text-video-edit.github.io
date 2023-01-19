@@ -1,9 +1,255 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <title>Test title</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Shape-aware Text-driven Layered Video Editing Demo</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        font-family: sans-serif;
+        font-size: 16px;
+        margin: 2rem;
+        text-align: center;
+      }
+      .container {
+        position: relative;
+        margin: auto;
+        max-width: 768px;
+        text-align: left;
+      }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/glide.core.min.css">
+    <link rel="stylesheet" href="style/glide.theme.min.css">
+    <link rel="stylesheet" href="style/glide-custom.css">
+    <link rel="stylesheet" href="style/navigation.css">
   </head>
-  <body>
-    <p>test</p>
+  <body onload="selectVideo('car-turn'); selectComparisonVideo('boat'); selectAppVideo('whiteswan')">
+    <div class="container">
+      <div class="page page1">
+        <h1 style="text-align: center">Shape-aware Text-driven Layered Video Editing</h1>
+        <div class="authors">
+          <div><a href="https://yaochih.github.io/">Yao-Chih Lee</a></div>
+          <div>Ji-Ze Genevieve Jang</div>
+          <div><a href="https://jamie725.github.io/website/">Yi-Ting Chen</a></div>
+          <div><a href="https://elizabethqiu.com/">Elizabeth Qiu</a></div>
+          <div><a href="https://jbhuang0604.github.io/">Jia-Bin Huang</a></div>
+        </div>
+        <p style="text-align: center">University of Maryland, College Park</p>
+        <br/>
+        <div class="links">
+          <a class="btn-solid-lg" href="#"><i class="fa fa-file-pdf-o"></i> Paper (arXiv)</a>
+          <a class="btn-solid-lg" href="#"><i class="fa fa-github"></i> Code</a>
+        </div>
+        
+        <div class="teaser">
+          <div class="glide" id="teaser-glide">
+            <div data-glide-el="track" class="glide__track">
+              <ul class="glide__slides">
+                <li class="glide__slide">
+                  <video controls muted loop autoplay class="teaser-video-0">
+                    <source src="videos/teaser/car-turn.mp4" type="video/mp4"/>
+                  </video>
+                </li>
+                <li class="glide__slide">
+                  <video controls muted loop class="teaser-video-1">
+                    <source src="videos/teaser/blackswan.mp4" type="video/mp4"/>
+                  </video>
+                </li>
+                <li class="glide__slide">
+                  <video controls muted loop class="teaser-video-2">
+                    <source src="videos/teaser/libby.mp4" type="video/mp4"/>
+                  </video>
+                </li>
+                <li class="glide__slide">
+                  <video controls muted loop class="teaser-video-3">
+                    <source src="videos/teaser/truck.mp4" type="video/mp4"/>
+                  </video>
+                </li>
+              </ul>
+            </div>
+
+            <div class="glide__arrows" data-glide-el="controls">
+              <span class="glide__arrow glide__arrow--left" data-glide-dir="<"><img src="dist/arrow-left-circle-fill.svg"/></span>
+              <span class="glide__arrow glide__arrow--right" data-glide-dir=">"><img src="dist/arrow-right-circle-fill.svg"/></span>
+            </div>
+            <div class="glide__bullets" data-glide-el="controls[nav]">
+              <span class="glide__bullet" data-glide-dir="=0"></span>
+              <span class="glide__bullet" data-glide-dir="=1"></span>
+              <span class="glide__bullet" data-glide-dir="=2"></span>
+              <span class="glide__bullet" data-glide-dir="=3"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+      <div class="page page2">
+        <h2 style="margin-top: 60px;">Interactive video demo</h2>
+        <div class="cocoen">
+          <video id="video-player1" autoplay muted onended="loadVideo(true)" style="display: block; height: 432px">
+              <source id="video-src1" src="">
+          </video>
+          <video id="video-player2" autoplay muted  onended="loadVideo(true)" style="display: block; height: 432px">
+              <source id="video-src2" src="">
+          </video>
+        </div>
+        <p style="margin-top: 5px; text-align: center;">Slide the bar to compare input (left) and output (right)</p>
+        <p><b>Input video</b></p>
+        <div class="btn-group">
+          <button class='btn-video' style="width:18%" onclick="selectVideo('car-turn')">Car-turn</button>
+          <button class='btn-video' style="width:18%" onclick="selectVideo('blackswan')">Blackswan</button>
+          <button class='btn-video' style="width:18%" onclick="selectVideo('boat')">Boat</button>
+          <button class='btn-video' style="width:18%" onclick="selectVideo('libby')">Libby</button>
+          <button class='btn-video' style="width:18%" onclick="selectVideo('surf')">Surf</button>
+          <br/>
+          <button class='btn-video' style="width:18%" onclick="selectVideo('motorbike')">Motorbike</button>
+          <button class='btn-video' style="width:18%" onclick="selectVideo('kite-surf')">Kite-surf</button>
+          <button class='btn-video' style="width:18%" onclick="selectVideo('truck')">Truck</button>
+          <button class='btn-video' style="width:18%" onclick="selectVideo('kid')">Kid</button>
+      </div>
+      <p><b>Foreground</b></p>
+      <div class="btn-group">
+          <button class='btn-fg' style="width:23%" onclick="selectFG(0)">source</button>
+          <button class='btn-fg' style="width:23%" onclick="selectFG(1)">sports</button>
+          <button class='btn-fg' style="width:23%" onclick="selectFG(2)">minivan</button>
+          <button class='btn-fg' style="width:23%" onclick="selectFG(3)">SUV</button>
+      </div>
+      <p><b>Background</b></p>
+      <div class="btn-group">
+        <button class='btn-bg' style="width:23%" onclick="selectBG(0)">source</button>
+        <button class='btn-bg' style="width:23%" onclick="selectBG(1)">grassland</button>
+        <button class='btn-bg' style="width:23%" onclick="selectBG(2)">snow</button>
+        <button class='btn-bg' style="width:23%" onclick="selectBG(3)">rural</button>
+      </div>
+      <br/><br/>
+    </div>
+    <div class="container">
+      <h2>Abstract</h2>
+      <p style="text-align: justify;">Temporal consistency is essential for video editing applications.
+        Existing work on layered representation of videos allows propagating edits consistently to each frame. 
+        These methods, however, can only edit object <i>appearance</i> rather than object <i>shape</i> changes due to the limitation of using a fixed UV mapping field for texture atlas. 
+        We present a shape-aware, text-driven video editing method to tackle this challenge. 
+        To handle shape changes in video editing, we first propagate the deformation field between the input and edited keyframe to all frames.
+        We then leverage a pre-trained text-conditioned diffusion model as guidance for refining shape distortion and completing unseen regions. 
+        The experimental results demonstrate that our method can achieve shape-aware consistent video editing and compare favorably with the state-of-the-art.</p>
+      <h2 style="margin-top: 40px;">Overview</h2>
+      <p>
+        Our method first bases on a pre-trained <a href="https://layered-neural-atlases.github.io/">NLA</a> to decompose the video into unified atlases with the associated per-frame UV mapping. 
+        The dense semantic correspondence between the input and edited keyframe serves as the <i>bridge</i> between input and output videos for per-frame deformation through the UV mapping and atlas. 
+      </p>
+      <img src="figures/overview.svg" style="width: 100%">
+      <p>
+        Our deformation module maps the edits back to the atlas via the original UV map by using the semantic correspondence of the keyframe. The per-pixel deformation vectors are transformed into the atlas space with the same UV mapping field.
+        Consequently, the UV map samples the color and the deformation vectors onto each frame to deform the original UV map respecting the edited shape.
+      </p>
+      <img src="figures/deformation.svg" style="width: 100%">
+    </div>
+
+    <div class="container">
+      <h2>Comparison with baseline methods and SOTA</h2>
+      <div style="display: block; height: 216px">
+        <video id="comparison-player1"  style="width: 49.6%" autoplay muted onended="loadComparison()">
+          <source id="comparison-src1" src="videos/car-turn/input.mp4">
+        </video>
+        <video id="comparison-player2"  style="width: 49.6%" autoplay muted onended="loadComparison()">
+          <source id="comparison-src2" src="videos/car-turn/input.mp4">
+        </video>
+      </div>
+      <div style="display: flex;flex-direction: row;">
+        <p id="comparison-caption" style="margin-top: 5px; text-align: center; width: 50%"></p>
+        <p style="margin-top: 5px; text-align: center; width: 50%;">Ours<br/><mark style="background: none; color: white">.</mark></p>
+      </div>
+      <p><b>Example</b></p>
+      <div class="btn-group">
+        <button class='btn-comp-video' style="width:23%" onclick="selectComparisonVideo('car-turn')">Jeep &#8594 sports</button>
+        <button class='btn-comp-video' style="width:23%" onclick="selectComparisonVideo('blackswan')">black swan &#8594 duck</button>
+        <button class='btn-comp-video' style="width:23%" onclick="selectComparisonVideo('boat')">boat &#8594 yacht</button>
+        <button class='btn-comp-video' style="width:23%" onclick="selectComparisonVideo('libby')">dog &#8594 cat</button>
+      </div>
+      <p><b>Compared method</b></p>
+      <div class="btn-group">
+        <button class='btn-comp-method' style="width:23%" onclick="selectComparedMethod('input')">Input</button>
+        <button class='btn-comp-method' style="width:23%" onclick="selectComparedMethod('multi-frame')">Multi-frame baseline</button>
+        <button class='btn-comp-method' style="width:23%" onclick="selectComparedMethod('single-frame')">Single-frame baseline</button>
+        <button class='btn-comp-method' style="width:23%" onclick="selectComparedMethod('text2live')">Text2LIVE</button>
+      </div>
+      <br/><br/>
+
+
+    </div>
+
+    <h2>Application: Shape-aware interpolation</h2>
+      <p>By linearly interpolating the deformation maps, the object shape can be easily interpolated <i>without</i> additional frame interpolation methods.</p>
+      <div style="display: block; height: 432px">
+        <video id="app-player" autoplay muted onended="loadApp(true)">
+          <source id="app-src" src="">
+        </video>
+      </div>
+      <p><b>Example</b></p>
+      <div class="btn-group">
+        <button class='btn-app-video' style="width:23%;" onclick="selectAppVideo('duck')">black swan &#8594 duck</button>
+        <button class='btn-app-video' style="width:23%;" onclick="selectAppVideo('whiteswan')">black swan &#8594 white swan</button>
+        <button class='btn-app-video' style="width:23%;" onclick="selectAppVideo('sports')">Jeep &#8594 sports</button>
+        <button class='btn-app-video' style="width:23%;" onclick="selectAppVideo('train')">truck &#8594 train</button>
+      </div>
+      <br/>
+      <h2>BibTex</h2>
+      <pre>
+        <code>
+@article{xxxxx,
+  title   = {Shape-aware Text-driven Layered Video Editing Demo},
+  author  = {Lee, Yao-Chih and Jang, Ji-Ze Genevieve Jang and Chen, Yi-Ting and Qiu, Elizabeth and Huang, Jia-Bin},
+  journal = {arXiv preprint arXiv:2301.xxxxx},
+  year    = {2023}
+}
+        </code>
+      </pre>
+    </div>
+    
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.js"
+      integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+      crossorigin="anonymous"></script>
+    <script src="js/interactive_demo.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="dist/cocoen.js"></script>
+    <!--<script src="dist/glide.min.js"></script>-->
+    <script>
+      Cocoen.parse(document.body);
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+    <script>
+        glide = new Glide('.glide', {
+          type: "carousel",
+          perView: 1.27,
+          focusAt: "center",
+          autoplay: 5500,
+          hoverpause: true
+        }).mount();
+        let video_num = 4;
+        glide.on('run', () => {
+          var index = glide.index;
+          for(var i = 0; i < video_num; i++) {
+            if(i == index) {
+              var active_videos = document.getElementsByClassName('teaser-video-' + i);
+              for(var j = 0; j < active_videos.length; j++) {
+                active_videos[j].load();
+                active_videos[j].currentTime = 0;
+                active_videos[j].play();
+              }
+            } else {
+              var inactive_videos = document.getElementsByClassName('teaser-video-' + i);
+              for(var j = 0; j < inactive_videos.length; j++) {
+                inactive_videos[j].pause(); 
+              }
+            }
+          }
+        });
+    </script>
   </body>
 </html>

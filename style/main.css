@@ -1,0 +1,110 @@
+.btn-group button {
+  padding: 0.5em 0.75em;
+  margin: 0.4em 0.4em;
+  min-width: 12ch;
+  background-color: #ddd;
+  color: #333;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  transition: all 0.2s;
+}
+
+.btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #7cb7d7;
+}
+
+.btn-group button.on {
+  background-color: #0077b6;
+  color: white;
+}
+
+h2 {
+  margin-top: 80px;
+}
+
+p {
+  margin-top: 20px;
+  margin-bottom: 5px;
+  line-height: 25px;
+}
+
+.authors {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+}
+
+pre {
+  text-align: left;
+  display: block;
+  overflow: auto;
+  background: #F6F8FA;
+}
+
+code {
+  overflow: auto;
+  color: #5B6F82;
+}
+
+img {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.teaser .glide video {
+  width: 600px;
+  border-radius: 12px;
+}
+
+/* links */
+.links {
+  text-align: center;
+}
+
+.links a {
+	color: #6b747b;
+	text-decoration: underline;
+}
+
+.links a:hover {
+	color: #6b747b;
+	text-decoration: underline;
+}
+
+.links .btn-solid-lg {
+	display: inline-block;
+	padding: 0.5rem 1rem 0.5rem 1rem;
+	border: 1px solid #0077b6;
+	border-radius: 15px;
+	background-color: #0077b6;
+	color: #ffffff;
+	font-weight: 500;
+	font-size: 1rem;
+	line-height: 0;
+	text-decoration: none;
+	transition: all 0.2s;
+	margin-bottom: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.links .btn-solid-lg:hover {
+	border: 1px solid #0077b6;
+	background-color: transparent;
+	color: #0077b6; /* needs to stay here because of the color property of a tag */
+	text-decoration: none;
+}
