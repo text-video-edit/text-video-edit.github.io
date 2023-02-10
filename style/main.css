@@ -134,6 +134,9 @@ img {
     max-width: 100%;
     text-align: left;
   }
+  video::-webkit-media-controls {
+    display: none;
+  }
 }
 @media screen and (min-width: 801px) {
   .btn-comp-video, .btn-comp-method, .btn-app-video {

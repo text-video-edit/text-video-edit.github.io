@@ -74,10 +74,10 @@
       <div class="page page2"  id="video-demo">
         <h2 style="margin-top: 60px;">Interactive video demo</h2>
         <div class="cocoen" style="width: 100%;">
-          <video id="video-player1" autoplay muted onended="" style="display: block;">
+          <video id="video-player1" autoplay muted defaultMuted playsinline webkit-playsinline onended="" style="display: block;">
               <source id="video-src1" src="">
           </video>
-          <video id="video-player2" autoplay muted  onended="loadVideo(true)" style="display: block;">
+          <video id="video-player2" autoplay muted defaultMuted playsinline webkit-playsinline onended="loadVideo(true)" style="display: block;">
               <source id="video-src2" src="">
           </video>
         </div>
@@ -136,10 +136,10 @@
     <div class="container" id="comparison-video">
       <h2>Comparison with baseline methods and SOTA</h2>
       <div style="display: block;" id="comparison-video-div">
-        <video id="comparison-player1"  style="width: 49%" autoplay muted onended="">
+        <video id="comparison-player1"  style="width: 49%" autoplay muted defaultMuted playsinline webkit-playsinline onended="">
           <source id="comparison-src1" src="videos/car-turn/input.mp4">
         </video>
-        <video id="comparison-player2"  style="width: 49%" autoplay muted onended="loadComparison()">
+        <video id="comparison-player2"  style="width: 49%" autoplay muted defaultMuted playsinline webkit-playsinline  onended="loadComparison()">
           <source id="comparison-src2" src="videos/car-turn/input.mp4">
         </video>
       </div>
@@ -169,7 +169,7 @@
       <h2>Application: Shape-aware interpolation</h2>
         <p>By linearly interpolating the deformation maps, the object shape can be easily interpolated <i>without</i> additional frame interpolation methods.</p>
         <div style="display: block;" id="application-div">
-          <video id="app-player" autoplay muted onended="loadApp(true)">
+          <video id="app-player" autoplay muted defaultMuted playsinline webkit-playsinline onended="loadApp(true)">
             <source id="app-src" src="">
           </video>
         </div>
