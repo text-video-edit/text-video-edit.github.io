@@ -153,8 +153,8 @@ function selectBG(index) {
 }
 
 function update_video_source() {
-    video1_path = 'videos/' + selected_video + '/input.mp4';
-    video2_path = 'videos/' + selected_video + '/' + selected_fg + '_' + selected_bg + '.mp4';
+    video1_path = 'videos/' + selected_video + '/input.webm';
+    video2_path = 'videos/' + selected_video + '/' + selected_fg + '_' + selected_bg + '.webm';
     console.log(video2_path);
 
     loadVideo();
@@ -269,8 +269,8 @@ let method_full_names = {
 };
 
 function update_comparison_source() {
-    comp1_path = 'videos/' + selected_compare_video + '/' + selected_compare_method + '.mp4';
-    comp2_path = 'videos/' + selected_compare_video + '/ours.mp4';
+    comp1_path = 'videos/' + selected_compare_video + '/' + selected_compare_method + '.webm';
+    comp2_path = 'videos/' + selected_compare_video + '/ours.webm';
 
     loadComparison(false);
     document.getElementById('comparison-caption').innerHTML = method_full_names[selected_compare_method];
@@ -320,7 +320,7 @@ function selectAppVideo(video) {
 }
 
 function update_app_source() {
-    app_path = 'videos/interpolation/' + selected_app_video + '.mp4';
+    app_path = 'videos/interpolation/' + selected_app_video + '.webm';
     loadApp();
 }
 
